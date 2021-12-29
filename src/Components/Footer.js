@@ -22,7 +22,7 @@ const Footer = () =>{
                     <a className="link" href="https://website-josephsb.herokuapp.com/" rel="noreferrer noopener" target="_blank">Created By: JosephSB</a>
                 </div>
             </section>
-            <img className="Img-Footer" src="http://192.168.1.5:3000/images/FooterBanner.png" alt="YourDrugs"></img>
+            <img className="Img-Footer" src={`${process.env.REACT_APP_API_HOST}/images/FooterBanner.png`} alt="YourDrugs"></img>
         </footer>
     )
 }

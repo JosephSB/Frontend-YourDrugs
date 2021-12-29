@@ -20,7 +20,7 @@ const Login =()=> {
             body: form,
             headers: {"content-type": "application/json"}
         }
-        let url = "http://192.168.1.5:3000/api/Users/validateUser"
+        let url = process.env.REACT_APP_API_HOST+"/api/Users/validateUser"
         if(form.userName !== "" && form.password !== ""){
             helpHttp().post(url,options).then(res => {
                 if(!res.err){

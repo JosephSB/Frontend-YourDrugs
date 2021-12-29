@@ -7,7 +7,7 @@ const Products = ()=>{
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`http://192.168.1.5:3000/api/products`)
+        fetch(`${process.env.REACT_APP_API_HOST}/api/products`)
             .then(res=> res.json())
             .then(data => {
                 setProductos(data)

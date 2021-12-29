@@ -4,7 +4,7 @@ const Comment = (props)=>{
     return(
         <div className="Comentario flex-column">
             <div className="HeadComentario flex-row">
-                <img className="UserImg" src="http://assets.stickpng.com/images/585e4beacb11b227491c3399.png" alt={props.data.userName}></img>
+                <i className="UserImg fas fa-user-circle fa-4x center"></i>
                 <div className="Comment flex-column">
                     <div className="flex-row">
                         <span className="Subtitle margin">{props.data.userName}</span>

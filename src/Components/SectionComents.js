@@ -15,43 +15,7 @@ const SectionComents = ()=>{
     const {nameProduct} = useParams()
     const [errSend, setErrSend] = useState(null);
 
-    const obtenerHora = () =>{
-        let hour = ""
-        let hora = (new Date()).getHours()
-        let minuto = (new Date()).getMinutes()
-        if(minuto<=9) minuto = `0${minuto}`
-        if(hora >12)hour = `${hora - 12}:${minuto} PM`
-        else hour =  `${hora}:${minuto} AM`
-        return hour
-    }
-
-    const ObtenerFecha= () =>{
-        let  f = new Date();
-        return (f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear())
-    }
-
-    useEffect(() => {
-        fetch(`http://192.168.1.5:3000/api/comments/${nameProduct.toLowerCase()}`)
-            .then(res=> res.json())
-            .then(data => {
-                setCommets(data)
-                if(data.error) setError(data.error)
-                setLoading(false)
-                setSend(false)
-            })
-    }, [send === true]);
-
-    const handleChange = (e) =>{
-        if(message.length <= 100) setMessage(e.target.value)
-        //setForm({...form,[e.target.name]:e.target.value})
-    }
-    const handleClick = (e) =>{
-        if(stars === 5) setStars(1)
-        else {
-            setStars(stars + 1)
-        }
-    }
-    const sendMessage = () =>{
+    const SendMessage =()=>{
         const Form = {
             product: nameProduct.toLowerCase(),
             score: stars,
@@ -74,7 +38,7 @@ const SectionComents = ()=>{
             body: Form,
             headers
         }
-        let url = `http://192.168.1.5:3000/api/comments/${Form.product}`
+        let url = `${process.env.REACT_APP_API_HOST}/api/comments/${Form.product}`
         helpHttp().post(url,options).then(res => {
             if(!res.err){
                 alert("Su comentario fue enviado")
@@ -87,14 +51,54 @@ const SectionComents = ()=>{
             } 
         })
         setMessage('')
-        console.log(Form)
+    }
+
+    const obtenerHora = () =>{
+        let hour = ""
+        let hora = (new Date()).getHours()
+        let minuto = (new Date()).getMinutes()
+        if(minuto<=9) minuto = `0${minuto}`
+        if(hora >12)hour = `${hora - 12}:${minuto} PM`
+        else hour =  `${hora}:${minuto} AM`
+        return hour
+    }
+
+    const ObtenerFecha= () =>{
+        let  f = new Date();
+        return (f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear())
+    }
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_HOST}/api/comments/${nameProduct.toLowerCase()}`)
+            .then(res=> res.json())
+            .then(data => {
+                setCommets(data)
+                if(data.error) setError(data.error)
+                setLoading(false)
+                setSend(false)
+            })
+    }, [send === true]);
+
+    const handleChange = (e) =>{
+        if(message.length <= 100) setMessage(e.target.value)
+        //setForm({...form,[e.target.name]:e.target.value})
+    }
+    const handleClick = (e) =>{
+        if(stars === 5) setStars(1)
+        else {
+            setStars(stars + 1)
+        }
+    }
+    const validateMessage = () =>{
+        if(message.length > 0 && stars >=1) SendMessage()
+        else setErrSend('Datos Ingresados no validos')
     }
 
     return(
         <div className="SectionComments center flex-column">
             <h1 className="Subtitle">COMENTARIOS SOBRE EL PRODUCTO</h1>
             <div className="ContainComents flex-row">
-                <img className="UserImg" src="http://assets.stickpng.com/images/585e4beacb11b227491c3399.png" alt="user"></img>
+                <i className="UserImg fas fa-user-circle white fa-4x"></i>
                 <div className="flex-start-column">
                     <div className="Score" onClick={handleClick}>
                         <span className="Subtitle">Score: </span>
@@ -110,7 +114,7 @@ const SectionComents = ()=>{
                     className="TextAreaComentario" name="comment" 
                     rows="2" cols="40" placeholder="Escribe aquí tu comentario:">
                     </textarea>
-                    <button onClick={sendMessage} className="ButtonComment">SEND</button>
+                    <button onClick={validateMessage} className="ButtonComment">SEND</button>
                 </div>
             </div>
             {errSend && <p className="Subtitle err">{errSend}</p>}

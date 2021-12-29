@@ -4,7 +4,7 @@ const ProductoCart = (props) =>{
     return (
         <div className="Producto flex-row-between">
             <div className="flex-row center">
-                <img className="Img-Cart" alt={props.data.nameProduct} src={`http://192.168.1.5:3000/images/${props.data.nameProduct.toUpperCase()}.png`}></img>
+                <img className="Img-Cart" alt={props.data.nameProduct} src={`${process.env.REACT_APP_API_HOST}/images/${props.data.nameProduct.toUpperCase()}.png`}></img>
                 <span className="Subtitle margin">{props.data.nameProduct}</span>
                 <span className="Subtitle margin green">x{props.data.cantidad}</span>
             </div>

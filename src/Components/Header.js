@@ -25,7 +25,7 @@ const Header = ()=>{
                 <NavLink className="nav-link" exact to="/products" activeClassName="active"><i className="fas fa-tablets"></i> PRODUCTS</NavLink>
                 <div className="Cont-Img center">
                     <NavLink exact to="/" activeClassName="activeImg">
-                        <img className="ImgLogo flex-row" src="http://192.168.1.5:3000/images/Logotipo.png" alt="YourDrugs"></img>
+                        <img className="ImgLogo flex-row" src={`${process.env.REACT_APP_API_HOST}/images/Logotipo.png`} alt="YourDrugs"></img>
                     </NavLink>
                 </div>
                 <NavLink className="nav-link" exact to="/Cart" activeClassName="active">

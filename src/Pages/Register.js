@@ -48,7 +48,7 @@ const Register =()=> {
             body: form,
             headers: {"content-type": "application/json"}
         }
-        let url = "http://192.168.1.5:3000/api/Users/addUser"
+        let url = process.env.REACT_APP_API_HOST+"/api/Users/addUser"
         if(Object.keys(validateForm(form)).length === 0){
             if(terms){
                 helpHttp().post(url,options).then(res => {

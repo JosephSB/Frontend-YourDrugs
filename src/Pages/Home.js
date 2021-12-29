@@ -18,7 +18,7 @@ const HomePage = () =>{
                         <li>Ready?&#128541;</li>
                     </ul>
                 </div>
-                <img className="Img" src="http://192.168.1.5:3000/images/Logo.png" alt="YourDrugs"></img>
+                <img className="Img" src={`${process.env.REACT_APP_API_HOST}/images/Logo.png`} alt="YourDrugs"></img>
                 <h2 className="Subtitle">EL MEJOR LUGAR PARA COMPRAR DROGAS ONLINE.<span className="BarrTyping"></span></h2>
             </div>
         </div>

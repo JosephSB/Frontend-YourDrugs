@@ -11,7 +11,7 @@ const InfoProducto = (props) =>{
     const {nameProduct} = useParams()
 
     useEffect(() => {
-        fetch(`http://192.168.1.5:3000/api/products/${nameProduct}`)
+        fetch(`${process.env.REACT_APP_API_HOST}/api/products/${nameProduct}`)
             .then(res=> res.json())
             .then(data => {
                 setProduct(data)
@@ -25,13 +25,13 @@ const InfoProducto = (props) =>{
         if(e.target.innerHTML === " + "){
             cant++
             setCantidad(cantidad + 1)
-            setTotal(product.price*cant)
+            setTotal((product.price*cant).toFixed(2))
         }
         if(e.target.innerHTML === " - "){
             if(cantidad>1){
                 cant--
                 setCantidad(cantidad - 1)
-                setTotal(product.price*cant)
+                setTotal((product.price*cant).toFixed(2))
             }
         }
     }
